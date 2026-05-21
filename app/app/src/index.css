@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 270 50% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 270 50% 53%;
+    --radius: 0px;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-[#0A0A0A] text-white font-body antialiased;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.font-display {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.font-body {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-mono {
+  font-family: 'Space Mono', monospace;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #9B59B6, #E67E22, #F1C40F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(90deg, #9B59B6, #E67E22);
+}
+
+/* 3D Block Scene Styles */
+.scene {
+  position: fixed;
+  inset: 0;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.mountain {
+  transform-style: preserve-3d;
+  width: max-content;
+  margin: auto;
+}
+
+.surface {
+  display: grid;
+  grid-template-columns: repeat(21, 1rem);
+  grid-template-rows: repeat(21, 1rem);
+  transform-style: preserve-3d;
+}
+
+.surface__cell {
+  transform-style: preserve-3d;
+}
+
+.block-3d {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  transform-style: preserve-3d;
+}
+
+.block__face {
+  position: absolute;
+  inset: 0;
+  background-color: var(--backColor, #1a1a1a);
+  border: 1px solid #000;
+  backface-visibility: hidden;
+}
+
+.block__face:nth-child(1) {
+  transform: translateZ(0.5rem);
+}
+
+.block__face:nth-child(2) {
+  transform: rotateY(180deg) translateZ(0.5rem);
+}
+
+.block__face:nth-child(3) {
+  transform: rotateY(90deg) translateZ(0.5rem);
+}
+
+.block__face:nth-child(4) {
+  transform: rotateY(-90deg) translateZ(0.5rem);
+}
+
+.block__face:nth-child(5) {
+  background-color: var(--topColor, #2a2a2a);
+  transform: rotateX(90deg) translateZ(0.5rem);
+}
+
+.block__face:nth-child(6) {
+  transform: rotateX(-90deg) translateZ(0.5rem);
+}
+
+/* Scroll indicator pulse */
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+.scroll-indicator {
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  .block-3d {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Lenis */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
